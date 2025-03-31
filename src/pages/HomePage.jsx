@@ -16,7 +16,7 @@ const HomePage = () => {
 		setRecipes([]);
 		try {
 			const res = await fetch(
-				`https://api.edam am.com/api/recipes/v2/?app_id=${APP_ID}&app_key=${APP_KEY}&q=${searchQuery}&type=public`
+				`https://api.edamam.com/api/recipes/v2/?app_id=${APP_ID}&app_key=${APP_KEY}&q=${searchQuery}&type=public`
 			);
 			const data = await res.json();
 			setRecipes(data.hits);
