@@ -1,11 +1,20 @@
 import { Heart, HeartPulse, Soup } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import "../lib/i18n"
+import { useTranslation } from "react-i18next";
 
 const getTwoValuesFromArray = (arr) => {
 	return [arr[0], arr[1]];
 };
 
 const RecipeCard = ({ recipe, bg, badge }) => {
+
+		const { t, i18n } = useTranslation();
+		
+		useEffect(() => {
+			i18n.changeLanguage(navigator.language);
+		}, []);
+
 	const healthLabels = getTwoValuesFromArray(recipe.healthLabels);
 	const [isFavorite, setIsFavorite] = useState(localStorage.getItem("favorites")?.includes(recipe.label));
 
@@ -46,7 +55,7 @@ const RecipeCard = ({ recipe, bg, badge }) => {
 							 gap-1 text-sm
 							'
 				>
-					<Soup size={16} /> {recipe.yield} Порции
+					<Soup size={16} /> {recipe.yield} {t("por")}
 				</div>
 
 				<div
@@ -65,7 +74,7 @@ const RecipeCard = ({ recipe, bg, badge }) => {
 				<p className='font-bold tracking-wide'>{recipe.label}</p>
 			</div>
 			<p className='my-2'>
-				{recipe.cuisineType[0].charAt(0).toUpperCase() + recipe.cuisineType[0].slice(1)} Кухня
+				{recipe.cuisineType[0].charAt(0).toUpperCase() + recipe.cuisineType[0].slice(1)}, {t("kit")}
 			</p>
 
 			<div className='flex gap-2 mt-auto'>

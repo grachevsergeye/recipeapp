@@ -1,13 +1,22 @@
 import RecipeCard from "../components/RecipeCard";
 import { getRandomColor } from "../lib/utils";
+import "../lib/i18n"
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 const FavoritesPage = () => {
 	const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
+	const { t, i18n } = useTranslation();
+	
+	useEffect(() => {
+		i18n.changeLanguage(navigator.language);
+	}, []);
+
 	return (
 		<div className='bg-[#faf9fb] flex-1 p-10 min-h-screen'>
 			<div className='max-w-screen-lg mx-auto'>
-				<p className='font-bold text-3xl md:text-5xl my-4'>Мои Избранные</p>
+				<p className='font-bold text-3xl md:text-5xl my-4'>{t("my")}</p>
 
 				{favorites.length === 0 && (
 					<div className='h-[80vh] flex flex-col items-center gap-4'>

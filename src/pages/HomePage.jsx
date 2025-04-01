@@ -2,11 +2,19 @@ import { Search } from "lucide-react";
 import RecipeCard from "../components/RecipeCard";
 import { useEffect, useState } from "react";
 import { getRandomColor } from "../lib/utils";
+import "../lib/i18n"
+import { useTranslation } from "react-i18next";
 
 const APP_ID = import.meta.env.VITE_APP_ID;
 const APP_KEY = import.meta.env.VITE_APP_KEY;
 
 const HomePage = () => {
+
+	const { t, i18n } = useTranslation();
+
+	useEffect(() => {
+		i18n.changeLanguage(navigator.language);
+	}, []);
 
 	const [recipes, setRecipes] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -16,7 +24,7 @@ const HomePage = () => {
 		setRecipes([]);
 		try {
 			const res = await fetch(
-				`https://api.edamam.com/api/recipes/v2/?app_id=${APP_ID}&app_key=${APP_KEY}&q=${searchQuery}&type=public`
+				`https://api.edam am.com/api/recipes/v2/?app_id=${APP_ID}&app_key=${APP_KEY}&q=${searchQuery}&type=public`
 			);
 			const data = await res.json();
 			setRecipes(data.hits);
@@ -46,13 +54,13 @@ const HomePage = () => {
 						<input
 							type='text'
 							className='text-sm md:text-md grow'
-							placeholder='Что ты хочешь сегодня приготовить?'
+							placeholder={t("cook")}
 						/>
 					</label>
 				</form>
 
-				<h1 className='font-bold text-3xl md:text-5xl mt-4'>Рекомендуемые рецепты</h1>
-				<p className='text-slate-500 font-semibold ml-1 my-2 text-sm tracking-tight'>Популярный выбор</p>
+				<h1 className='font-bold text-3xl md:text-5xl mt-4'>{t("rr")}</h1>
+				<p className='text-slate-500 font-semibold ml-1 my-2 text-sm tracking-tight'>{t("pp")}</p>
 
 				<div className='grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
 					{!loading &&
