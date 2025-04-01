@@ -40,9 +40,9 @@ i18n.use(initReactI18next).init({
                     my: "Мое Избранное",
                     por: "Порции",
                     kit: "Кухня"
+                },
             },
         },
-      },
     });
 
 export default i18n;
